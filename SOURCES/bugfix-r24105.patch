@@ -1,0 +1,12 @@
+diff -ruN openvas-libraries-8.0.6/misc/openvas_server.c openvas-libraries-8.0.6-new/misc/openvas_server.c
+--- openvas-libraries-8.0.6/misc/openvas_server.c	2015-08-03 06:14:29.000000000 -0400
++++ openvas-libraries-8.0.6-new/misc/openvas_server.c	2016-01-13 11:33:39.945033212 -0500
+@@ -806,7 +806,7 @@
+   */
+ 
+   if ((err_gnutls = gnutls_priority_set_direct (*server_session,
+-                                                priority? priority : "SECURE",
++                                                priority? priority : "NORMAL",
+                                                 NULL)))
+     {
+       g_warning ("%s: failed to set tls priorities: %s\n", __FUNCTION__,
