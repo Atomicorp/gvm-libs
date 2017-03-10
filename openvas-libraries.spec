@@ -140,6 +140,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/openvas-nasl-lint
 %{_libdir}/libopenvas_*
 %{_mandir}/man1/openvas-nasl.1.gz
+%{_mandir}/man1/openvas-nasl-lint.1.gz
 #/usr/share/openvas/openvas-services
 #/usr/share/openvas/openvas-lsc-rpm-creator.sh
 
