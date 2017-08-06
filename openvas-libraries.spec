@@ -9,6 +9,8 @@ Source0: http://wald.intevation.org/frs/download.php/2420/openvas-libraries-9.0.
 Patch0: openvas-libraries-bsdsource.patch
 Patch1: openvas-libraries-libssh.patch
 Patch2: bugfix-r24105.patch
+Patch3: openvas-libraries-gcc7.patch
+
 
 
 License: GNU LGPLv2
@@ -94,6 +96,7 @@ This package contains documentation for %{name}.
 #%patch1 -p 1 -b .libssh
 #%endif
 #%patch2 -p1 -b .r24105
+%patch3 -p1 
 
 %build
 %if 0%{?rhel} == 6
@@ -105,7 +108,7 @@ This package contains documentation for %{name}.
 %endif
 
 %if 0%{?fedora} > 23
-    export CFLAGS="$RPM_OPT_FLAGS -Wno-unused-const-variable -Wno-error=misleading-indentation"
+    export CFLAGS="$RPM_OPT_FLAGS -Wno-unused-const-variable -Wno-error=misleading-indentation -Wno-format-truncation"
 %endif
 
 
