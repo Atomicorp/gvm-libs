@@ -1,4 +1,4 @@
-libsnmp-devSource: openvas-libraries
+Source: openvas-libraries
 Section: libs
 Priority: optional
 Maintainer: Debian Security Tools Packaging Team <pkg-security-team@lists.alioth.debian.org>
