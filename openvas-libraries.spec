@@ -5,7 +5,7 @@ Summary: Support libraries for Open Vulnerability Assessment (OpenVAS) Server
 Name:    openvas-libraries
 Version: 9.0.1
 Release: RELEASE-AUTO%{?dist}.art
-Source0: https://github.com/greenbone/gvm-libs/releases/download/v%{version}/openvas-libraries-%{version}.tar.gz
+Source0: http://wald.intevation.org/frs/download.php/2420/openvas-libraries-9.0.1.tar.gz
 Patch0: openvas-libraries-bsdsource.patch
 Patch1: openvas-libraries-libssh.patch
 Patch2: bugfix-r24105.patch
@@ -89,17 +89,14 @@ This package contains documentation for %{name}.
 
 %prep
 
-%setup -q -n gvm-libs-%{version}
-
-# This is temporary
-cp -a ../gvm-libs-%{version} ../openvas-libraries-%{version}
+%setup -q
 
 #%if 0%{?fedora} >= 21
 #%patch0 -p 1 -b .bsdsource
 #%patch1 -p 1 -b .libssh
 #%endif
 #%patch2 -p1 -b .r24105
-#%patch3 -p1 
+%patch3 -p1 
 
 %build
 %if 0%{?rhel} == 6
