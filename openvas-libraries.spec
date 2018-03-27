@@ -89,7 +89,7 @@ This package contains documentation for %{name}.
 
 %prep
 
-%setup -q
+%setup -q -n gvm-libs-%{version}
 
 #%if 0%{?fedora} >= 21
 #%patch0 -p 1 -b .bsdsource
