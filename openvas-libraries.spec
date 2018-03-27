@@ -92,7 +92,7 @@ This package contains documentation for %{name}.
 %setup -q -n gvm-libs-%{version}
 
 # This is temporary
-mv gvm-libs-%{version} openvas-libraries-%{version}
+cp -a ../gvm-libs-%{version} ../openvas-libraries-%{version}
 
 #%if 0%{?fedora} >= 21
 #%patch0 -p 1 -b .bsdsource
