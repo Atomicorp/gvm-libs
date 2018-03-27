@@ -1,0 +1,3 @@
+# the doxygen embedded jquery.js is fine as per
+# /usr/share/doc/doxygen/README.jquery
+embedded-javascript-library usr/share/doc/libopenvas-doc/html/jquery.js *

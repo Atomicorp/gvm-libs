@@ -1,0 +1,5 @@
+version=3
+# don't consider the beta versions
+#opts=uversionmangle=s/[-+](beta|alpha|rc)/~\1/ \
+ http://wald.intevation.org/frs/?group_id=29 \
+ .*/openvas-libraries-(\d[\d.]*)\.tar\.gz$

@@ -1,0 +1,11 @@
+# see git-dpm(1) from git-dpm package
+7da0f99cda3c415f119dac0ebdfe605b85c4fdf0
+7da0f99cda3c415f119dac0ebdfe605b85c4fdf0
+796d2f295d42358a59440b335ea1300242738bbd
+796d2f295d42358a59440b335ea1300242738bbd
+openvas-libraries_9.0.1.orig.tar.gz
+d7f734f5d3ebe1fdf1be1ee3182def1409a78f4c
+649251
+debianTag="debian/%f%v"
+patchedTag="patched/%f%v"
+upstreamTag="upstream/%u"

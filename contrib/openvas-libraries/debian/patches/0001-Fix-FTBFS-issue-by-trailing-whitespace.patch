@@ -1,0 +1,22 @@
+From 7da0f99cda3c415f119dac0ebdfe605b85c4fdf0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?SZ=20Lin=20=28=E6=9E=97=E4=B8=8A=E6=99=BA=29?=
+ <szlin@debian.org>
+Date: Mon, 18 Sep 2017 21:54:08 +0800
+Subject: Fix FTBFS issue by trailing whitespace
+
+---
+ CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 033d122..71deefc 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -212,6 +212,7 @@ if (NOT OPENVAS_OMP_ONLY)
+     execute_process (COMMAND pcap-config --cflags
+       OUTPUT_VARIABLE PCAP_CFLAGS
+       OUTPUT_STRIP_TRAILING_WHITESPACE)
++    string(STRIP "${PCAP_LDFLAGS}" PCAP_LDFLAGS)
+   else (PCAP_CONFIG)
+     message (STATUS "pcap-config not found, using defaults...")
+     set (PCAP_LDFLAGS "-L/usr/lib -lpcap")
