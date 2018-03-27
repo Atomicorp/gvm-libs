@@ -79,7 +79,7 @@ build-xenial-x86_64:
   stage: prep
   before_script:
     - mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
-    - rm -rf ~/rpmbuild/BUILD/* 2>/dev/null 
+    - rm -rf ~/rpmbuild/BUILD/* || true
     - cp openvas-libraries.spec ~/rpmbuild/SPECS/
     - cp SOURCES/* ~/rpmbuild/SOURCES/
     - git clone https://gitlab.dev.atomicorp.com/atomicrocketturtle/buildsys-tools
