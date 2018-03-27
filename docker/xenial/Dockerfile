@@ -7,7 +7,7 @@ RUN sed -i 's/^# deb-src \(.*xenial.* main restricted\)$/deb-src \1/g' /etc/apt/
 RUN apt-get update
 
 RUN apt-get build-dep -y linux 
-RUN apt-get install -y fakeroot devscripts bc 
+RUN apt-get install -y fakeroot devscripts bc  dh-autoreconf
 RUN apt-get clean 
 
 RUN install --directory -m 0755 /data && \
