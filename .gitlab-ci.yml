@@ -76,7 +76,7 @@ build-fc27-x86_64:
 # Ubuntu 16
 # EOL: 04/01/2021
 build-xenial-x86_64:
-  stage: packaging
+  stage: prep
   before_script:
     - mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
     - cp openvas-libraries.spec ~/rpmbuild/SPECS/
