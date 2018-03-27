@@ -96,7 +96,7 @@ This package contains documentation for %{name}.
 #%patch1 -p 1 -b .libssh
 #%endif
 #%patch2 -p1 -b .r24105
-%patch3 -p1 
+#%patch3 -p1 
 
 %build
 %if 0%{?rhel} == 6
