@@ -5,7 +5,8 @@ Summary: Support libraries for Open Vulnerability Assessment (OpenVAS) Server
 Name:    openvas-libraries
 Version: 9.0.1
 Release: RELEASE-AUTO%{?dist}.art
-Source0: https://github.com/greenbone/gvm-libs/releases/download/v%{version}/openvas-libraries-%{version}.tar.gz
+#Source0: https://github.com/greenbone/gvm-libs/releases/download/v%{version}/openvas-libraries-%{version}.tar.gz
+Source0: https://github.com/greenbone/gvm-libs/archive/v9.0.1.tar.gz
 Patch0: openvas-libraries-bsdsource.patch
 Patch1: openvas-libraries-libssh.patch
 Patch2: bugfix-r24105.patch
