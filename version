@@ -1,4 +1,4 @@
-RELEASE_VERSION=9.0.1
+RELEASE_VERSION=9.0.2
 DEB_PACKAGES="libopenvas9 libopenvas-dev libopenvas-doc openvas-nasl"
 DEB_VERSION="$RELEASE_VERSION"
 CHANGELOG="Initial Release"
