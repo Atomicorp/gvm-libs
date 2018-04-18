@@ -1,9 +1,9 @@
 Source: openvas-libraries
 Section: libs
 Priority: optional
-Maintainer: Debian Security Tools Packaging Team <pkg-security-team@lists.alioth.debian.org>
-Uploaders: ChangZhuo Chen (陳昌倬) <czchen@debian.org>,
-           SZ Lin (林上智) <szlin@debian.org>
+Maintainer: Atomicorp <support@atomicorp.com>
+Uploaders: Atomicorp <support@atomicorp.com>
+
 Build-Depends: debhelper (>= 10.3),
                bison,
                cmake,
@@ -19,8 +19,6 @@ Build-Depends: debhelper (>= 10.3),
                uuid-dev,
                libsnmp-dev
 Homepage: http://www.openvas.org/
-Vcs-Browser: https://anonscm.debian.org/cgit/pkg-security/openvas-libraries.git
-Vcs-Git: https://anonscm.debian.org/cgit/pkg-security/openvas-libraries.git
 Standards-Version: 4.1.0
 
 Package: libopenvas-dev
