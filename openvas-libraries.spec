@@ -2,7 +2,7 @@
 %define _default_patch_fuzz 2
 
 Summary: Support libraries for Open Vulnerability Assessment (OpenVAS) Server
-Name:    gvm-libs
+Name:    openvas-libraries
 Version: 9.0.1
 Release: RELEASE-AUTO%{?dist}.art
 Source0: openvas-libraries-9.0.2.tar.gz

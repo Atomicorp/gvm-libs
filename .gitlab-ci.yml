@@ -3,7 +3,7 @@ stages:
   - build
 
 build-el7-x86_64:
-  stage: build
+  stage: prep
   before_script:
     - mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
     - mkdir -p ~/mock
