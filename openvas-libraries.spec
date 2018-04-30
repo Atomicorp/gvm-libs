@@ -133,7 +133,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc COPYING* README Changelog CHANGES
+%doc COPYING* README ChangeLog CHANGES
 %{_bindir}/openvas-nasl
 %{_bindir}/openvas-nasl-lint
 %{_libdir}/libopenvas_*
