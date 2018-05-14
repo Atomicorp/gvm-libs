@@ -5,13 +5,9 @@ Summary: Support libraries for Open Vulnerability Assessment (OpenVAS) Server
 Name:    openvas-libraries
 Version: 9.0.1
 Release: RELEASE-AUTO%{?dist}.art
-#Source0: https://github.com/greenbone/gvm-libs/releases/download/v%{version}/openvas-libraries-%{version}.tar.gz
-Source0: http://wald.intevation.org/frs/download.php/2420/openvas-libraries-9.0.1.tar.gz
-Patch0: openvas-libraries-bsdsource.patch
-Patch1: openvas-libraries-libssh.patch
-Patch2: bugfix-r24105.patch
-Patch3: openvas-libraries-gcc7.patch
-
+Source0: openvas-libraries-9.0.2.tar.gz
+#Source0: http://wald.intevation.org/frs/download.php/2420/openvas-libraries-9.0.1.tar.gz
+Patch0: openvas-libraries-libssh.patch
 
 
 License: GNU LGPLv2
@@ -90,16 +86,18 @@ This package contains documentation for %{name}.
 
 %prep
 
-%setup -q
+#%setup -q
+%autosetup -p 1
 
-#%if 0%{?fedora} >= 21
-#%patch0 -p 1 -b .bsdsource
-#%patch1 -p 1 -b .libssh
-#%endif
-#%patch2 -p1 -b .r24105
-%patch3 -p1 
+#Fix codepage of the Changelog
+iconv -f LATIN1 -t UTF8 < ChangeLog > ChangeLog1
+mv ChangeLog1 ChangeLog
+
 
 %build
+
+export CFLAGS="%{optflags} -Wno-format-truncation"
+
 %if 0%{?rhel} == 6
   export CC="gcc -Wl,-rpath,/opt/atomic/atomic-gnutls3/root/usr/lib,-rpath,/opt/atomic/atomic-gnutls3/root/usr/lib64,-rpath,/opt/atomic/atomic-glib2/root/usr/lib64/,-rpath,/opt/atomic/atomic-glib2/root/usr/lib/"
   export LDFLAGS="-L/opt/atomic/atomic-gnutls3/root/usr/lib -L/opt/atomic/atomic-gnutls3/root/usr/lib64 -L/lib -L/usr/openvas/lib/ -L/usr/openvas/lib64/"
@@ -112,6 +110,11 @@ This package contains documentation for %{name}.
     export CFLAGS="$RPM_OPT_FLAGS -Wno-unused-const-variable -Wno-error=misleading-indentation -Wno-format-truncation"
 %endif
 
+%if 0%{?fedora} >= 28
+export CFLAGS="${CFLAGS} -Wno-error=deprecated-declarations"
+%endif
+
+
 
 %cmake  -DCMAKE_VERBOSE_MAKEFILE=ON \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
@@ -121,9 +124,7 @@ This package contains documentation for %{name}.
 	-DBUILD_WITH_LDAP=ON
 
 make 
-%if 0%{!?el5}
 %{__make} doc
-%endif
 
 %install
 make install  DESTDIR=$RPM_BUILD_ROOT
@@ -139,7 +140,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc COPYING
+%doc COPYING* README ChangeLog CHANGES
 %{_bindir}/openvas-nasl
 %{_bindir}/openvas-nasl-lint
 %{_libdir}/libopenvas_*
