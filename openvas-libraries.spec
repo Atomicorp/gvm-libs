@@ -95,6 +95,9 @@ mv ChangeLog1 ChangeLog
 
 
 %build
+
+export CFLAGS="%{optflags} -Wno-format-truncation"
+
 %if 0%{?rhel} == 6
   export CC="gcc -Wl,-rpath,/opt/atomic/atomic-gnutls3/root/usr/lib,-rpath,/opt/atomic/atomic-gnutls3/root/usr/lib64,-rpath,/opt/atomic/atomic-glib2/root/usr/lib64/,-rpath,/opt/atomic/atomic-glib2/root/usr/lib/"
   export LDFLAGS="-L/opt/atomic/atomic-gnutls3/root/usr/lib -L/opt/atomic/atomic-gnutls3/root/usr/lib64 -L/lib -L/usr/openvas/lib/ -L/usr/openvas/lib64/"
@@ -108,6 +111,7 @@ mv ChangeLog1 ChangeLog
 %endif
 
 %if 0%{?fedora} >= 28
+export CFLAGS="${CFLAGS} -Wno-error=deprecated-declarations"
 %endif
 
 
