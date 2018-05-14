@@ -10,7 +10,6 @@ Source0: openvas-libraries-9.0.2.tar.gz
 Patch0: openvas-libraries-libssh.patch
 
 
-
 License: GNU LGPLv2
 URL: http://www.openvas.org
 Group: System Environment/Libraries
@@ -107,6 +106,10 @@ mv ChangeLog1 ChangeLog
 %if 0%{?fedora} > 23
     export CFLAGS="$RPM_OPT_FLAGS -Wno-unused-const-variable -Wno-error=misleading-indentation -Wno-format-truncation"
 %endif
+
+%if 0%{?fedora} >= 28
+%endif
+
 
 
 %cmake  -DCMAKE_VERBOSE_MAKEFILE=ON \
