@@ -3,12 +3,13 @@
 
 Summary: Support libraries for Open Vulnerability Assessment (OpenVAS) Server
 Name:    openvas-libraries
-Version: 9.0.1
+Version: 9.0.3
 Release: RELEASE-AUTO%{?dist}.art
-Source0: openvas-libraries-9.0.2.tar.gz
-#Source0: http://wald.intevation.org/frs/download.php/2420/openvas-libraries-9.0.1.tar.gz
-Patch0: openvas-libraries-libssh.patch
-
+Source0: https://github.com/greenbone/gvm-libs/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Patch0:        openvas-libraries-libssh.patch
+Patch1:         openvas-libraries-gcc-warnings.patch
+Patch2:         openvas-libraries-snmp.patch
+Patch3:         openvas-libraries-buffer.patch
 
 License: GNU LGPLv2
 URL: http://www.openvas.org
@@ -17,6 +18,8 @@ Vendor: OpenVAS Development Team, http://www.openvas.org
 Packager: Scott R. Shinn <scott@atomicorp.com>
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Prefix: %{_prefix}
+
+BuildRequires: git
 
 BuildRequires: libssh-devel
 BuildRequires: zlib-devel
@@ -27,6 +30,7 @@ BuildRequires: hiredis-devel
 BuildRequires: xmltoman
 BuildRequires: net-snmp-devel
 BuildRequires: libksba-devel
+BuildRequires: graphviz
 
 
 %if 0%{?fedora} >= 12 || 0%{?rhel} >= 6
@@ -87,7 +91,7 @@ This package contains documentation for %{name}.
 %prep
 
 #%setup -q
-%autosetup -p 1
+%autosetup -p 1 -n gvm-libs-%{version} -S git
 
 #Fix codepage of the Changelog
 iconv -f LATIN1 -t UTF8 < ChangeLog > ChangeLog1
@@ -113,6 +117,12 @@ export CFLAGS="%{optflags} -Wno-format-truncation"
 %if 0%{?fedora} >= 28
 export CFLAGS="${CFLAGS} -Wno-error=deprecated-declarations"
 %endif
+
+%if 0%{?fedora} >= 30
+# disable warnings -> error for stringop-truncation for now
+export CFLAGS="${CFLAGS} -Wno-error=stringop-truncation"
+%endif
+
 
 
 
