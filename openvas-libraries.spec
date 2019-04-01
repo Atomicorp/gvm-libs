@@ -18,6 +18,7 @@ Vendor: OpenVAS Development Team, http://www.openvas.org
 Packager: Scott R. Shinn <scott@atomicorp.com>
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Prefix: %{_prefix}
+Provides: gvm-libs
 
 BuildRequires: git
 
@@ -31,6 +32,14 @@ BuildRequires: xmltoman
 BuildRequires: net-snmp-devel
 BuildRequires: libksba-devel
 BuildRequires: graphviz
+
+# El7
+%if  0%{?rhel} == 7
+BuildRequires: atomic-libgcrypt-libgcrypt atomic-libgcrypt-libgcrypt-devel atomic-libgcrypt-libgcrypt-runtime atomic-libgpg-error-libgpg-error-devel atomic-libgpg-error-libgpg-error-runtime
+%else
+BuildRequires: libgcrypt-devel
+%endif
+
 
 
 %if 0%{?fedora} >= 12 || 0%{?rhel} >= 6
@@ -63,7 +72,6 @@ Obsoletes: openvas-libnasl
 
 
 BuildRequires: libpcap-devel
-BuildRequires: libgcrypt-devel
 
 %description
 openvas-libraries is the base library for the OpenVAS network
@@ -100,7 +108,6 @@ mv ChangeLog1 ChangeLog
 
 %build
 
-export CFLAGS="%{optflags} -Wno-format-truncation"
 
 %if 0%{?rhel} == 6
   export CC="gcc -Wl,-rpath,/opt/atomic/atomic-gnutls3/root/usr/lib,-rpath,/opt/atomic/atomic-gnutls3/root/usr/lib64,-rpath,/opt/atomic/atomic-glib2/root/usr/lib64/,-rpath,/opt/atomic/atomic-glib2/root/usr/lib/"
@@ -108,6 +115,22 @@ export CFLAGS="%{optflags} -Wno-format-truncation"
   export CFLAGS="-I/opt/atomic/atomic-gnutls3/root/usr/include  -I/usr/openvas/include"
   export GNUTLS_LIBS=/opt/atomic/atomic-gnutls3/root/usr/lib:/opt/atomic/atomic-gnutls3/root/usr/lib64
   export PKG_CONFIG_PATH=/opt/atomic/atomic-glib2/root/usr/lib64/pkgconfig:/opt/atomic/atomic-gnutls3/root/usr/lib/pkgconfig:/opt/atomic/atomic-gnutls3/root/usr/lib64/pkgconfig:/usr/lib/pkgconfig/
+%endif
+
+%if  0%{?rhel} == 7
+	# This should do it normally, but it doesnt without the rpath down below
+	. /opt/atomic/atomic-libgpg-error/enable
+	. /opt/atomic/atomic-libgcrypt/enable
+	export CC="gcc -Wl,-rpath,/opt/atomic/atomic-libgpg-error/root/usr/lib64,-rpath,/opt/atomic/atomic-libgcrypt/root/usr/lib64/"
+	export PATH="/opt/atomic/atomic-libgpg-error/root/usr/bin:/opt/atomic/atomic-libgcrypt/root/usr/bin:$PATH"
+	export LDFLAGS="-L/opt/atomic/atomic-libgpg-error/root/usr/lib64 -L/opt/atomic/atomic-libgcrypt/root/usr/lib64/ -lgcrypt"
+	export CFLAGS="-I/opt/atomic/atomic-libgpg-error/root/usr/include -I/opt/atomic/atomic-libgcrypt/root/usr/include"
+	export PKG_CONFIG_PATH="/opt/atomic/atomic-libgpg-error/root/usr/lib64/pkgconfig:/opt/atomic/atomic-libgcrypt/root/usr/lib64/pkgconfig:/usr/lib64/pkgconfig:/usr/lib/pkgconfig"
+	export CMAKE_PREFIX_PATH=/opt/atomic/atomic-libgcrypt/root/
+
+%else
+export CFLAGS="%{optflags} -Wno-format-truncation"
+
 %endif
 
 %if 0%{?fedora} > 23
