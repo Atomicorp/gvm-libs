@@ -36,6 +36,7 @@ BuildRequires: graphviz
 # El7
 %if  0%{?rhel} == 7
 BuildRequires: atomic-libgcrypt-libgcrypt atomic-libgcrypt-libgcrypt-devel atomic-libgcrypt-libgcrypt-runtime atomic-libgpg-error-libgpg-error-devel atomic-libgpg-error-libgpg-error-runtime
+BuildRequires: cmake3
 %else
 BuildRequires: libgcrypt-devel
 %endif
