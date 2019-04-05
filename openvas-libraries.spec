@@ -3,13 +3,13 @@
 
 Summary: Support libraries for Open Vulnerability Assessment (OpenVAS) Server
 Name:    openvas-libraries
-Version: 9.0.3
+Version: 10.0.0
 Release: RELEASE-AUTO%{?dist}.art
-Source0: https://github.com/greenbone/gvm-libs/releases/download/v%{version}/%{name}-%{version}.tar.gz
-Patch0:        openvas-libraries-libssh.patch
-Patch1:         openvas-libraries-gcc-warnings.patch
-Patch2:         openvas-libraries-snmp.patch
-Patch3:         openvas-libraries-buffer.patch
+Source0: https://github.com/greenbone/gvm-libs/archive/v%{version}.tar.gz
+#Patch0:        openvas-libraries-libssh.patch
+#Patch1:         openvas-libraries-gcc-warnings.patch
+#Patch2:         openvas-libraries-snmp.patch
+#Patch3:         openvas-libraries-buffer.patch
 
 License: GNU LGPLv2
 URL: http://www.openvas.org
@@ -101,9 +101,6 @@ This package contains documentation for %{name}.
 #%setup -q
 %autosetup -p 1 -n gvm-libs-%{version} -S git
 
-#Fix codepage of the Changelog
-iconv -f LATIN1 -t UTF8 < ChangeLog > ChangeLog1
-mv ChangeLog1 ChangeLog
 
 
 %build
