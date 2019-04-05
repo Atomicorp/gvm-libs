@@ -170,12 +170,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc COPYING* README ChangeLog CHANGES
-%{_bindir}/openvas-nasl
-%{_bindir}/openvas-nasl-lint
-%{_libdir}/libopenvas_*
-%{_mandir}/man1/openvas-nasl.1.gz
-%{_mandir}/man1/openvas-nasl-lint.1.gz
+%doc COPYING* CHANGES
+#%{_bindir}/openvas-nasl
+#%{_bindir}/openvas-nasl-lint
+%{_libdir}/libgvm_*
+#%{_mandir}/man1/openvas-nasl.1.gz
+#%{_mandir}/man1/openvas-nasl-lint.1.gz
 #/usr/share/openvas/openvas-services
 #/usr/share/openvas/openvas-lsc-rpm-creator.sh
 
@@ -184,8 +184,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 #{_bindir}/libopenvas-config
 #{_mandir}/man1/libopenvas-config.1.gz
-%{_libdir}/pkgconfig/libopenvas*.pc
-%{_includedir}/openvas/
+%{_libdir}/pkgconfig/libgvm*.pc
+%{_includedir}/gvm/
 
 %if 0%{!?el5}
 %files doc
@@ -201,6 +201,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Apr 5 2019 Scott R. Shinn <scott@atomicorp.com> - 10.0.0-RELEASE-AUTO
+- Update to 10.0.0
+
 * Wed Aug 31 2016 Scott R. Shinn <scott@atomicorp.com> - 8.0.8-25
 - Update to 8.0.8
 
