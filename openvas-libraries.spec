@@ -26,7 +26,7 @@ BuildRequires: libssh-devel
 BuildRequires: zlib-devel
 BuildRequires: libtool
 BuildRequires: openldap-devel
-#BuildRequires: openvas-smb
+BuildRequires: openvas-smb
 BuildRequires: hiredis-devel
 BuildRequires: xmltoman
 BuildRequires: net-snmp-devel
