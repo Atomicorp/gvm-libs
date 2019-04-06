@@ -3,13 +3,14 @@
 
 Summary: Support libraries for Open Vulnerability Assessment (OpenVAS) Server
 Name:    openvas-libraries
-Version: 9.0.3
+Version: 10.0.0
 Release: RELEASE-AUTO%{?dist}.art
-Source0: https://github.com/greenbone/gvm-libs/releases/download/v%{version}/%{name}-%{version}.tar.gz
-Patch0:        openvas-libraries-libssh.patch
-Patch1:         openvas-libraries-gcc-warnings.patch
-Patch2:         openvas-libraries-snmp.patch
-Patch3:         openvas-libraries-buffer.patch
+Source0: https://github.com/greenbone/gvm-libs/archive/v%{version}.tar.gz
+#Patch0:        openvas-libraries-libssh.patch
+#Patch1:         openvas-libraries-gcc-warnings.patch
+#Patch2:         openvas-libraries-snmp.patch
+#Patch3:         openvas-libraries-buffer.patch
+Patch1: gvm-libs-10.0.0-uuid-version.patch
 
 License: GNU LGPLv2
 URL: http://www.openvas.org
@@ -36,6 +37,10 @@ BuildRequires: graphviz
 # El7
 %if  0%{?rhel} == 7
 BuildRequires: atomic-libgcrypt-libgcrypt atomic-libgcrypt-libgcrypt-devel atomic-libgcrypt-libgcrypt-runtime atomic-libgpg-error-libgpg-error-devel atomic-libgpg-error-libgpg-error-runtime
+BuildRequires: cmake3
+BuildRequires: atomic-zlib, atomic-zlib-devel
+BuildRequires: atomic-gpgme, atomic-gpgme-devel
+
 %else
 BuildRequires: libgcrypt-devel
 %endif
@@ -44,8 +49,8 @@ BuildRequires: libgcrypt-devel
 
 %if 0%{?fedora} >= 12 || 0%{?rhel} >= 6
 BuildRequires: libuuid libuuid-devel
-%else
-BuildRequires: e2fsprogs e2fsprogs-devel
+#%else
+#BuildRequires: e2fsprogs e2fsprogs-devel
 %endif
 
 
@@ -101,36 +106,20 @@ This package contains documentation for %{name}.
 #%setup -q
 %autosetup -p 1 -n gvm-libs-%{version} -S git
 
-#Fix codepage of the Changelog
-iconv -f LATIN1 -t UTF8 < ChangeLog > ChangeLog1
-mv ChangeLog1 ChangeLog
 
 
 %build
-
-
-%if 0%{?rhel} == 6
-  export CC="gcc -Wl,-rpath,/opt/atomic/atomic-gnutls3/root/usr/lib,-rpath,/opt/atomic/atomic-gnutls3/root/usr/lib64,-rpath,/opt/atomic/atomic-glib2/root/usr/lib64/,-rpath,/opt/atomic/atomic-glib2/root/usr/lib/"
-  export LDFLAGS="-L/opt/atomic/atomic-gnutls3/root/usr/lib -L/opt/atomic/atomic-gnutls3/root/usr/lib64 -L/lib -L/usr/openvas/lib/ -L/usr/openvas/lib64/"
-  export CFLAGS="-I/opt/atomic/atomic-gnutls3/root/usr/include  -I/usr/openvas/include"
-  export GNUTLS_LIBS=/opt/atomic/atomic-gnutls3/root/usr/lib:/opt/atomic/atomic-gnutls3/root/usr/lib64
-  export PKG_CONFIG_PATH=/opt/atomic/atomic-glib2/root/usr/lib64/pkgconfig:/opt/atomic/atomic-gnutls3/root/usr/lib/pkgconfig:/opt/atomic/atomic-gnutls3/root/usr/lib64/pkgconfig:/usr/lib/pkgconfig/
-%endif
-
 %if  0%{?rhel} == 7
-	# This should do it normally, but it doesnt without the rpath down below
-	. /opt/atomic/atomic-libgpg-error/enable
-	. /opt/atomic/atomic-libgcrypt/enable
-	export CC="gcc -Wl,-rpath,/opt/atomic/atomic-libgpg-error/root/usr/lib64,-rpath,/opt/atomic/atomic-libgcrypt/root/usr/lib64/"
-	export PATH="/opt/atomic/atomic-libgpg-error/root/usr/bin:/opt/atomic/atomic-libgcrypt/root/usr/bin:$PATH"
-	export LDFLAGS="-L/opt/atomic/atomic-libgpg-error/root/usr/lib64 -L/opt/atomic/atomic-libgcrypt/root/usr/lib64/ -lgcrypt"
-	export CFLAGS="-I/opt/atomic/atomic-libgpg-error/root/usr/include -I/opt/atomic/atomic-libgcrypt/root/usr/include"
-	export PKG_CONFIG_PATH="/opt/atomic/atomic-libgpg-error/root/usr/lib64/pkgconfig:/opt/atomic/atomic-libgcrypt/root/usr/lib64/pkgconfig:/usr/lib64/pkgconfig:/usr/lib/pkgconfig"
-	export CMAKE_PREFIX_PATH=/opt/atomic/atomic-libgcrypt/root/
+	source /opt/atomicorp/atomic/enable
+        export CC="gcc -Wl,-rpath,/opt/atomicorp/atomic/root/usr/lib64/"
+	export PATH="/opt/atomicorp/atomic/root/usr/bin:$PATH"
+	export LDFLAGS="-L/opt/atomicorp/atomic/root/usr/lib64/heimdal -L/opt/atomicorp/atomic/root/usr/lib64/ -lkrb5"
+	export CFLAGS="-I/opt/atomicorp/atomic/root/usr/include/"
+	export PKG_CONFIG_PATH="/opt/atomicorp/atomic/root/usr/lib64/pkgconfig:/opt/atomicorp/atomic/root/usr/lib64/heimdal/pkgconfig/"
+	export CMAKE_PREFIX_PATH="/opt/atomicorp/atomic/root/"
 
 %else
-export CFLAGS="%{optflags} -Wno-format-truncation"
-
+	export CFLAGS="%{optflags} -Wno-format-truncation"
 %endif
 
 %if 0%{?fedora} > 23
@@ -147,9 +136,12 @@ export CFLAGS="${CFLAGS} -Wno-error=stringop-truncation"
 %endif
 
 
-
-
-%cmake  -DCMAKE_VERBOSE_MAKEFILE=ON \
+%if  0%{?rhel} == 7
+cmake3 \
+%else 
+%cmake \
+%endif 
+	-DCMAKE_VERBOSE_MAKEFILE=ON \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DSYSCONFDIR=%{_sysconfdir} \
 	-DLIBDIR=%{_libdir} \
@@ -173,12 +165,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc COPYING* README ChangeLog CHANGES
-%{_bindir}/openvas-nasl
-%{_bindir}/openvas-nasl-lint
-%{_libdir}/libopenvas_*
-%{_mandir}/man1/openvas-nasl.1.gz
-%{_mandir}/man1/openvas-nasl-lint.1.gz
+%doc COPYING* CHANGES
+#%{_bindir}/openvas-nasl
+#%{_bindir}/openvas-nasl-lint
+%{_libdir}/libgvm_*
+#%{_mandir}/man1/openvas-nasl.1.gz
+#%{_mandir}/man1/openvas-nasl-lint.1.gz
 #/usr/share/openvas/openvas-services
 #/usr/share/openvas/openvas-lsc-rpm-creator.sh
 
@@ -187,8 +179,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 #{_bindir}/libopenvas-config
 #{_mandir}/man1/libopenvas-config.1.gz
-%{_libdir}/pkgconfig/libopenvas*.pc
-%{_includedir}/openvas/
+%{_libdir}/pkgconfig/libgvm*.pc
+%{_includedir}/gvm/
 
 %if 0%{!?el5}
 %files doc
@@ -204,6 +196,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Apr 5 2019 Scott R. Shinn <scott@atomicorp.com> - 10.0.0-RELEASE-AUTO
+- Update to 10.0.0
+
 * Wed Aug 31 2016 Scott R. Shinn <scott@atomicorp.com> - 8.0.8-25
 - Update to 8.0.8
 
