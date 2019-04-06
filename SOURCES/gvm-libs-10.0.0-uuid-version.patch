@@ -1,0 +1,12 @@
+diff -ruN gvm-libs-10.0.0/util/CMakeLists.txt a/util/CMakeLists.txt
+--- gvm-libs-10.0.0/util/CMakeLists.txt	2019-04-05 04:27:07.000000000 -0400
++++ a/util/CMakeLists.txt	2019-04-06 11:37:32.367696505 -0400
+@@ -39,7 +39,7 @@
+ pkg_check_modules (GNUTLS REQUIRED gnutls>=3.2.15)
+ 
+ # for uuidutils we need uuidlib
+-pkg_check_modules (UUID REQUIRED uuid>=2.25.0)
++pkg_check_modules (UUID REQUIRED uuid>=2.23.0)
+ 
+ # for sshutils we need libssh
+ pkg_check_modules (LIBSSH REQUIRED libssh>=0.6.0)
