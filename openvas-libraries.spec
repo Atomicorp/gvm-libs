@@ -41,6 +41,8 @@ BuildRequires: cmake3
 BuildRequires: atomic-zlib, atomic-zlib-devel
 BuildRequires: atomic-gpgme, atomic-gpgme-devel
 
+Requires: atomic-gpgme
+
 %else
 BuildRequires: libgcrypt-devel
 %endif
