@@ -15,8 +15,12 @@ Patch1: gvm-libs-10.0.0-uuid-version.patch
 License: GNU LGPLv2
 URL: http://www.openvas.org
 Group: System Environment/Libraries
-Vendor: OpenVAS Development Team, http://www.openvas.org 
-Packager: Scott R. Shinn <scott@atomicorp.com>
+
+URL: http://www.openvas.org
+Vendor: Greenbone https://www.greenbone.net
+Packager: https://www.atomicorp.com
+
+
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Prefix: %{_prefix}
 Provides: openvas-libraries
