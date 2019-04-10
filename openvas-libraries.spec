@@ -11,16 +11,11 @@ Source0: https://github.com/greenbone/gvm-libs/archive/v%{version}.tar.gz
 #Patch2:         openvas-libraries-snmp.patch
 #Patch3:         openvas-libraries-buffer.patch
 Patch1: gvm-libs-10.0.0-uuid-version.patch
-
 License: GNU LGPLv2
-URL: http://www.openvas.org
 Group: System Environment/Libraries
-
 URL: http://www.openvas.org
 Vendor: Greenbone https://www.greenbone.net
 Packager: https://www.atomicorp.com
-
-
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Prefix: %{_prefix}
 Provides: openvas-libraries
