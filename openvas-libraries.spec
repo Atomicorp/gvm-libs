@@ -2,7 +2,7 @@
 %define _default_patch_fuzz 2
 
 Summary: Support libraries for Open Vulnerability Assessment (OpenVAS) Server
-Name:    openvas-libraries
+Name:    gvm-libs
 Version: 10.0.0
 Release: RELEASE-AUTO%{?dist}.art
 Source0: https://github.com/greenbone/gvm-libs/archive/v%{version}.tar.gz
@@ -19,7 +19,7 @@ Vendor: OpenVAS Development Team, http://www.openvas.org
 Packager: Scott R. Shinn <scott@atomicorp.com>
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Prefix: %{_prefix}
-Provides: gvm-libs
+Provides: openvas-libraries
 
 BuildRequires: git
 
