@@ -19,6 +19,7 @@ Packager: https://www.atomicorp.com
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Prefix: %{_prefix}
 Provides: openvas-libraries
+Obsoletes: openvas-libraries
 
 BuildRequires: git
 
