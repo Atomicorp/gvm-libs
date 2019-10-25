@@ -3,7 +3,7 @@
 
 Summary: Support libraries for Open Vulnerability Assessment (OpenVAS) Server
 Name:    gvm-libs
-Version: 10.0.0
+Version: 11.0.0
 Release: RELEASE-AUTO%{?dist}.art
 Source0: https://github.com/greenbone/gvm-libs/archive/v%{version}.tar.gz
 #Patch0:        openvas-libraries-libssh.patch
@@ -167,7 +167,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc COPYING* CHANGES
+%license COPYING
+%doc CHANGELOG.md README.md
 #%{_bindir}/openvas-nasl
 #%{_bindir}/openvas-nasl-lint
 %{_libdir}/libgvm_*
@@ -198,6 +199,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Oct 25 2019 Scott R. Shinn <scott@atomicorp.com> - 11.0.0-RELEASE-AUTO
+- Update to 11.0.0
+
 * Fri Apr 5 2019 Scott R. Shinn <scott@atomicorp.com> - 10.0.0-RELEASE-AUTO
 - Update to 10.0.0
 
