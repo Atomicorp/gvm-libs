@@ -111,25 +111,19 @@ This package contains documentation for %{name}.
 
 
 %build
+export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -lgnutls"
+
 %if  0%{?rhel} == 7
 	source /opt/atomicorp/atomic/enable
         export CC="gcc -Wl,-rpath,/opt/atomicorp/atomic/root/usr/lib64/,-rpath,/opt/atomicorp/atomic/root/usr/lib64/heimdal/"
 	export PATH="/opt/atomicorp/atomic/root/usr/bin:$PATH"
 	export LDFLAGS="-L/opt/atomicorp/atomic/root/usr/lib64/heimdal -L/opt/atomicorp/atomic/root/usr/lib64/ -lkrb5"
-	export CFLAGS="-I/opt/atomicorp/atomic/root/usr/include/"
+	export CFLAGS="$CFLAGS -I/opt/atomicorp/atomic/root/usr/include/"
 	export PKG_CONFIG_PATH="/opt/atomicorp/atomic/root/usr/lib64/pkgconfig:/opt/atomicorp/atomic/root/usr/lib64/heimdal/pkgconfig/"
 	export CMAKE_PREFIX_PATH="/opt/atomicorp/atomic/root/"
 
 %else
 	export CFLAGS="%{optflags} -Wno-format-truncation"
-%endif
-
-%if 0%{?fedora} > 23
-    export CFLAGS="$RPM_OPT_FLAGS -Wno-unused-const-variable -Wno-error=misleading-indentation -Wno-format-truncation"
-%endif
-
-%if 0%{?fedora} >= 28
-export CFLAGS="${CFLAGS} -Wno-error=deprecated-declarations"
 %endif
 
 %if 0%{?fedora} >= 30
