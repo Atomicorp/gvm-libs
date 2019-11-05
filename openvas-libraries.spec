@@ -123,7 +123,7 @@ export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -lgnut
 	export CMAKE_PREFIX_PATH="/opt/atomicorp/atomic/root/"
 
 %else
-	export CFLAGS="%{optflags} -Wno-format-truncation"
+	export CFLAGS="%{optflags} -Wno-format-truncation -lgnutls"
 %endif
 
 %if 0%{?fedora} >= 30
