@@ -3,14 +3,11 @@
 
 Summary: Support libraries for Open Vulnerability Assessment (OpenVAS) Server
 Name:    gvm-libs
-Version: 11.0.0
+Version: 11.0.1
 Release: RELEASE-AUTO%{?dist}.art
 Source0: https://github.com/greenbone/gvm-libs/archive/v%{version}.tar.gz
-#Patch0:        openvas-libraries-libssh.patch
-#Patch1:         openvas-libraries-gcc-warnings.patch
-#Patch2:         openvas-libraries-snmp.patch
-#Patch3:         openvas-libraries-buffer.patch
-Patch1: gvm-libs-10.0.0-uuid-version.patch
+Patch0:  openvas-libraries-strncpy.patch
+
 License: GNU LGPLv2
 Group: System Environment/Libraries
 URL: http://www.openvas.org
@@ -21,8 +18,9 @@ Prefix: %{_prefix}
 Provides: openvas-libraries
 Obsoletes: openvas-libraries
 
-BuildRequires: git
 
+BuildRequires:  libxml2-devel
+BuildRequires: git
 BuildRequires: libssh-devel
 BuildRequires: zlib-devel
 BuildRequires: libtool
@@ -106,8 +104,7 @@ This package contains documentation for %{name}.
 %prep
 
 #%setup -q
-%autosetup -p 1 -n gvm-libs-%{version} -S git
-
+%autosetup -n gvm-libs-%{version} -p1
 
 
 %build
@@ -128,7 +125,9 @@ export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -lgnut
 
 %if 0%{?fedora} >= 30
 # disable warnings -> error for stringop-truncation for now
+export CFLAGS="%{optflags} -Wno-format-truncation"
 export CFLAGS="${CFLAGS} -Wno-error=stringop-truncation"
+
 %endif
 
 
@@ -144,8 +143,8 @@ cmake3 \
         -DLOCALSTATEDIR=%{_localstatedir} \
 	-DBUILD_WITH_LDAP=ON
 
-make 
-%{__make} doc
+%make_build
+%{__make} doc-full
 
 %install
 make install  DESTDIR=$RPM_BUILD_ROOT
