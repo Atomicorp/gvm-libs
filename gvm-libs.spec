@@ -149,6 +149,7 @@ cmake3 \
 %install
 make install  DESTDIR=$RPM_BUILD_ROOT
 
+
 %post 
 /sbin/ldconfig
 
