@@ -108,7 +108,7 @@ This package contains documentation for %{name}.
 
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -lgnutls"
+export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -lgnutls -Wno-format-truncation -Werror=maybe-uninitialized"
 
 %if  0%{?rhel} == 7
 	source /opt/atomicorp/atomic/enable
@@ -119,9 +119,8 @@ export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -lgnut
 	export PKG_CONFIG_PATH="/opt/atomicorp/atomic/root/usr/lib64/pkgconfig:/opt/atomicorp/atomic/root/usr/lib64/heimdal/pkgconfig/"
 	export CMAKE_PREFIX_PATH="/opt/atomicorp/atomic/root/"
 
-%else
-	export CFLAGS="%{optflags} -Wno-format-truncation -lgnutls"
 %endif
+
 
 %if 0%{?fedora} >= 30
 # disable warnings -> error for stringop-truncation for now
