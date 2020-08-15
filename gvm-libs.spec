@@ -108,7 +108,7 @@ This package contains documentation for %{name}.
 
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -lgnutls -Wno-format-truncation -Werror=maybe-uninitialized"
+export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -lgnutls -Wno-format-truncation  -Wno-maybe-uninitialized"
 
 %if  0%{?rhel} == 7
 	source /opt/atomicorp/atomic/enable
@@ -192,7 +192,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Sat Aug 15 2029 Scott R. Shinn <scott@atomicorp.com> - 20.8.0-RELEASE-AUTO
+* Sat Aug 15 2020 Scott R. Shinn <scott@atomicorp.com> - 20.8.0-RELEASE-AUTO
 - Update to 20.8.0
 
 * Fri Oct 25 2019 Scott R. Shinn <scott@atomicorp.com> - 11.0.0-RELEASE-AUTO
