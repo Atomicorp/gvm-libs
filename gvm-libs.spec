@@ -122,12 +122,6 @@ export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -lgnut
 %endif
 
 
-%if 0%{?fedora} >= 30
-# disable warnings -> error for stringop-truncation for now
-export CFLAGS="%{optflags} -Wno-format-truncation"
-export CFLAGS="${CFLAGS} -Wno-error=stringop-truncation"
-
-%endif
 
 
 %if  0%{?rhel} == 7
