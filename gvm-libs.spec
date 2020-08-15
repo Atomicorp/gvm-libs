@@ -3,7 +3,7 @@
 
 Summary: Support libraries for Open Vulnerability Assessment (OpenVAS) Server
 Name:    gvm-libs
-Version: 11.0.1
+Version: 20.8.0
 Release: RELEASE-AUTO%{?dist}.art
 Source0: https://github.com/greenbone/gvm-libs/archive/v%{version}.tar.gz
 Patch0:  openvas-libraries-strncpy.patch
@@ -193,6 +193,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Aug 15 2029 Scott R. Shinn <scott@atomicorp.com> - 20.8.0-RELEASE-AUTO
+- Update to 20.8.0
+
 * Fri Oct 25 2019 Scott R. Shinn <scott@atomicorp.com> - 11.0.0-RELEASE-AUTO
 - Update to 11.0.0
 
