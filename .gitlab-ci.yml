@@ -14,7 +14,7 @@ build-el7-x86_64:
     
 
   script:
-    - (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  gitlab-build.sh el7-x86_64 openvas-libraries.spec /mnt/repo/atomic-testing/centos/7/x86_64/ ; else  gitlab-build.sh el7-x86_64 openvas-libraries.spec /mnt/repo/atomic-bleeding/centos/7/x86_64/ ; fi )
+    - (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  gitlab-build.sh el7-x86_64 gvm-libs.spec /mnt/repo/atomic-testing/centos/7/x86_64/ ; else  gitlab-build.sh el7-x86_64 gvm-libs.spec /mnt/repo/atomic-bleeding/centos/7/x86_64/ ; fi )
 
 build-el8-x86_64:
   stage: prep
@@ -27,7 +27,7 @@ build-el8-x86_64:
 
 
   script:
-    - (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  gitlab-build.sh el8-x86_64 openvas-libraries.spec /mnt/repo/atomic-testing/centos/8/x86_64/ ; else  gitlab-build.sh el8-x86_64 openvas-libraries.spec /mnt/repo/atomic-bleeding/centos/8/x86_64/ ; fi )
+    - (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  gitlab-build.sh el8-x86_64 gvm-libs.spec /mnt/repo/atomic-testing/centos/8/x86_64/ ; else  gitlab-build.sh el8-x86_64 gvm-libs.spec /mnt/repo/atomic-bleeding/centos/8/x86_64/ ; fi )
 
 
 
@@ -37,12 +37,12 @@ build-fc32-x86_64:
     - mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
     - mkdir -p ~/mock
     - cp mock/* ~/mock/
-    - cp openvas-libraries.spec ~/rpmbuild/SPECS/
+    - cp gvm-libs.spec ~/rpmbuild/SPECS/
     - cp SOURCES/* ~/rpmbuild/SOURCES/
 
 
   script:
-    - (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  gitlab-build.sh fc32-x86_64 openvas-libraries.spec /mnt/repo/atomic-testing/fedora/32/x86_64 ; else  gitlab-build.sh fc32-x86_64 openvas-libraries.spec /mnt/repo/atomic-bleeding/fedora/32/x86_64 ; fi )
+    - (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  gitlab-build.sh fc32-x86_64 gvm-libs.spec /mnt/repo/atomic-testing/fedora/32/x86_64 ; else  gitlab-build.sh fc32-x86_64 gvm-libs.spec /mnt/repo/atomic-bleeding/fedora/32/x86_64 ; fi )
 
 
 
@@ -53,12 +53,12 @@ build-fc30-x86_64:
     - mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
     - mkdir -p ~/mock
     - cp mock/* ~/mock/
-    - cp openvas-libraries.spec ~/rpmbuild/SPECS/
+    - cp gvm-libs.spec ~/rpmbuild/SPECS/
     - cp SOURCES/* ~/rpmbuild/SOURCES/
 
 
   script:
-    - (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  gitlab-build.sh fc30-x86_64 openvas-libraries.spec /mnt/repo/atomic-testing/fedora/30/x86_64 ; else  gitlab-build.sh fc30-x86_64 openvas-libraries.spec /mnt/repo/atomic-bleeding/fedora/30/x86_64 ; fi )
+    - (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  gitlab-build.sh fc30-x86_64 gvm-libs.spec /mnt/repo/atomic-testing/fedora/30/x86_64 ; else  gitlab-build.sh fc30-x86_64 gvm-libs.spec /mnt/repo/atomic-bleeding/fedora/30/x86_64 ; fi )
 
 
 
@@ -70,12 +70,12 @@ build-fc29-x86_64:
     - mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
     - mkdir -p ~/mock
     - cp mock/* ~/mock/
-    - cp openvas-libraries.spec ~/rpmbuild/SPECS/
+    - cp gvm-libs.spec ~/rpmbuild/SPECS/
     - cp SOURCES/* ~/rpmbuild/SOURCES/
 
 
   script:
-    - (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  gitlab-build.sh fc29-x86_64 openvas-libraries.spec /mnt/repo/atomic-testing/fedora/29/x86_64 ; else  gitlab-build.sh fc29-x86_64 openvas-libraries.spec /mnt/repo/atomic-bleeding/fedora/29/x86_64 ; fi )
+    - (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  gitlab-build.sh fc29-x86_64 gvm-libs.spec /mnt/repo/atomic-testing/fedora/29/x86_64 ; else  gitlab-build.sh fc29-x86_64 gvm-libs.spec /mnt/repo/atomic-bleeding/fedora/29/x86_64 ; fi )
 
 
 # Ubuntu 16
@@ -85,14 +85,14 @@ build-xenial-x86_64:
   before_script:
     - mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
     - rm -rf ~/rpmbuild/BUILD/* || true
-    - cp openvas-libraries.spec ~/rpmbuild/SPECS/
+    - cp gvm-libs.spec ~/rpmbuild/SPECS/
     - cp SOURCES/* ~/rpmbuild/SOURCES/
     - git clone https://gitlab.dev.atomicorp.com/atomicrocketturtle/buildsys-tools
     - cp buildsys-tools/* ~/bin/
     - chmod +x ~/bin/build-debian.sh
 
   script:
-    -  (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  dist=xenial arch=amd64 ~/bin/build-debian.sh -b openvas-libraries.spec /mnt/repo/atomic-testing/debian/; else  dist=xenial arch=amd64 ~/bin/build-debian.sh -b openvas-libraries.spec /mnt/repo/atomic-bleeding/debian/; fi )
+    -  (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  dist=xenial arch=amd64 ~/bin/build-debian.sh -b gvm-libs.spec /mnt/repo/atomic-testing/debian/; else  dist=xenial arch=amd64 ~/bin/build-debian.sh -b gvm-libs.spec /mnt/repo/atomic-bleeding/debian/; fi )
 
 # Ubuntu 18
 # EOL: 
@@ -101,14 +101,14 @@ build-bionic-x86_64:
   before_script:
     - mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
     - rm -rf ~/rpmbuild/BUILD/* || true
-    - cp openvas-libraries.spec ~/rpmbuild/SPECS/
+    - cp gvm-libs.spec ~/rpmbuild/SPECS/
     - cp SOURCES/* ~/rpmbuild/SOURCES/
     - git clone https://gitlab.dev.atomicorp.com/atomicrocketturtle/buildsys-tools
     - cp buildsys-tools/* ~/bin/
     - chmod +x ~/bin/build-debian.sh
 
   script:
-    -  (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  dist=bionic arch=amd64 ~/bin/build-debian.sh -b openvas-libraries.spec /mnt/repo/atomic-testing/debian/; else  dist=bionic arch=amd64 ~/bin/build-debian.sh -b openvas-libraries.spec /mnt/repo/atomic-bleeding/debian/; fi )
+    -  (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  dist=bionic arch=amd64 ~/bin/build-debian.sh -b gvm-libs.spec /mnt/repo/atomic-testing/debian/; else  dist=bionic arch=amd64 ~/bin/build-debian.sh -b gvm-libs.spec /mnt/repo/atomic-bleeding/debian/; fi )
 
 
 
@@ -128,5 +128,5 @@ build-kali-x86_64:
     - chmod +x ~/bin/build-debian.sh
 
   script:
-    -  (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  dist=kali arch=amd64 ~/bin/build-debian.sh -b openvas-libraries.spec /mnt/repo/atomic-testing/debian/; else  dist=kali arch=amd64 ~/bin/build-debian.sh -b openvas-libraries.spec /mnt/repo/atomic-bleeding/debian/; fi )
+    -  (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  dist=kali arch=amd64 ~/bin/build-debian.sh -b gvm-libs.spec /mnt/repo/atomic-testing/debian/; else  dist=kali arch=amd64 ~/bin/build-debian.sh -b gvm-libs.spec /mnt/repo/atomic-bleeding/debian/; fi )
 

@@ -3,7 +3,7 @@
 
 Summary: Support libraries for Open Vulnerability Assessment (OpenVAS) Server
 Name:    gvm-libs
-Version: 11.0.1
+Version: 20.8.0
 Release: RELEASE-AUTO%{?dist}.art
 Source0: https://github.com/greenbone/gvm-libs/archive/v%{version}.tar.gz
 Patch0:  openvas-libraries-strncpy.patch
@@ -108,7 +108,7 @@ This package contains documentation for %{name}.
 
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -lgnutls"
+export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -lgnutls -Wno-format-truncation  -Wno-maybe-uninitialized"
 
 %if  0%{?rhel} == 7
 	source /opt/atomicorp/atomic/enable
@@ -119,16 +119,9 @@ export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -lgnut
 	export PKG_CONFIG_PATH="/opt/atomicorp/atomic/root/usr/lib64/pkgconfig:/opt/atomicorp/atomic/root/usr/lib64/heimdal/pkgconfig/"
 	export CMAKE_PREFIX_PATH="/opt/atomicorp/atomic/root/"
 
-%else
-	export CFLAGS="%{optflags} -Wno-format-truncation -lgnutls"
 %endif
 
-%if 0%{?fedora} >= 30
-# disable warnings -> error for stringop-truncation for now
-export CFLAGS="%{optflags} -Wno-format-truncation"
-export CFLAGS="${CFLAGS} -Wno-error=stringop-truncation"
 
-%endif
 
 
 %if  0%{?rhel} == 7
@@ -148,6 +141,7 @@ cmake3 \
 
 %install
 make install  DESTDIR=$RPM_BUILD_ROOT
+
 
 %post 
 /sbin/ldconfig
@@ -192,6 +186,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Aug 15 2020 Scott R. Shinn <scott@atomicorp.com> - 20.8.0-RELEASE-AUTO
+- Update to 20.8.0
+
 * Fri Oct 25 2019 Scott R. Shinn <scott@atomicorp.com> - 11.0.0-RELEASE-AUTO
 - Update to 11.0.0
 
