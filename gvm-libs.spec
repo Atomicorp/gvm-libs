@@ -108,7 +108,7 @@ This package contains documentation for %{name}.
 
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -lgnutls -Wno-format-truncation  -Wno-maybe-uninitialized"
+export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -lgnutls -Wno-format-truncation  -Wno-maybe-uninitialized -Wno-error=stringop-truncation"
 
 %if  0%{?rhel} == 7
 	source /opt/atomicorp/atomic/enable
